@@ -44,7 +44,7 @@ payload = {
 
 
 response = requests.post(
-    api_url,
+    api_url+"/v1/analyze-pr",
     headers={
         "Authorization": f"Bearer {cystatic_api_key}",
         "Content-Type": "application/json"
