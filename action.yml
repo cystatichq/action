@@ -1,0 +1,15 @@
+name: "Cystatic PR Analyzer"
+description: "Sends PR code changes to Cystatic API for analysis"
+
+inputs:
+  github_token:
+    description: "GitHub token for the server to post comments"
+    required: true
+
+  cystatic_api_key:
+    description: "API key to authenticate with Cystatic API"
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
