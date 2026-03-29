@@ -1,10 +1,6 @@
 import os
 import json
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 def get_env(name: str) -> str:
     value = os.getenv(name)
@@ -12,11 +8,10 @@ def get_env(name: str) -> str:
         raise Exception(f"Missing env var: {name}")
     return value
 
-
 github_token = get_env("INPUT_GITHUB_TOKEN")
 cystatic_api_key = get_env("INPUT_CYSTATIC_API_KEY")
 event_path = os.getenv("GITHUB_EVENT_PATH")
-api_url = get_env("API_URL")
+api_url = "https://cystatic-core.onrender.com"
 
 with open(event_path, "r") as f:
     event = json.load(f)
@@ -36,9 +31,9 @@ headers = {
 
 diff = requests.get(diff_url, headers=headers).text
 
-
 # Forward ONLY to Cystatic API
 payload = {
+    "github_token": github_token,
     "repo": repo,
     "pr_number": pr_number,
     "diff": diff
