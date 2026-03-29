@@ -36,9 +36,9 @@ diff = requests.get(diff_url, headers=headers).text
 
 # Forward ONLY to Cystatic API
 payload = {
-    "github_token": github_token,
     "repo": repo,
     "pr_number": pr_number,
+    "diff_url": diff_url,
     "diff": diff
 }
 
