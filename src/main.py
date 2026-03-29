@@ -1,6 +1,9 @@
 import os
 import json
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_env(name: str) -> str:
@@ -12,8 +15,8 @@ def get_env(name: str) -> str:
 
 github_token = get_env("INPUT_GITHUB_TOKEN")
 cystatic_api_key = get_env("INPUT_CYSTATIC_API_KEY")
-
 event_path = os.getenv("GITHUB_EVENT_PATH")
+api_url = get_env("API_URL")
 
 with open(event_path, "r") as f:
     event = json.load(f)
@@ -42,7 +45,7 @@ payload = {
 }
 
 response = requests.post(
-    "https://api.cystatic.app/analyze-pr",
+    api_url,
     headers={
         "Authorization": f"Bearer {cystatic_api_key}",
         "Content-Type": "application/json"
