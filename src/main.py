@@ -2,9 +2,6 @@ import os
 import json
 import requests
 
-
-print("ENV KEYS:", list(os.environ.keys())) # Debugging line to check available environment variables
-
 def get_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
