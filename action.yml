@@ -3,11 +3,15 @@ description: "Sends PR code changes to Cystatic API for analysis"
 
 inputs:
   github_token:
-    description: "GitHub token for the server to post comments"
+    description: "GitHub token for posting comments"
     required: true
 
   cystatic_api_key:
     description: "API key to authenticate with Cystatic API"
+    required: true
+
+  cystatic_api_url:
+    description: "Cystatic API endpoint"
     required: true
 
 runs:
