@@ -2,6 +2,9 @@ import os
 import json
 import requests
 
+
+print("ENV KEYS:", list(os.environ.keys())) # Debugging line to check available environment variables
+
 def get_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
@@ -38,6 +41,7 @@ payload = {
     "pr_number": pr_number,
     "diff": diff
 }
+
 
 response = requests.post(
     api_url,
