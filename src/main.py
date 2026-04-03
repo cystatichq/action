@@ -20,8 +20,6 @@ pr = event["pull_request"]
 repo = event["repository"]["full_name"]
 pr_number = pr["number"]
 
-
-# Get PR diff (source of truth)
 diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
 
 headers = {
@@ -39,15 +37,33 @@ payload = {
     "diff": diff
 }
 
+try:
+    response = requests.post(
+        f"{api_url}/v1/analyze-pr",
+        headers={
+            "Authorization": f"Bearer {cystatic_api_key}",
+            "Content-Type": "application/json"
+        },
+        json=payload,
+        timeout=30
+    )
 
-response = requests.post(
-    api_url+"/v1/analyze-pr",
-    headers={
-        "Authorization": f"Bearer {cystatic_api_key}",
-        "Content-Type": "application/json"
-    },
-    json=payload
-)
+    response.raise_for_status()
 
-# No commenting, no formatting, no side effects
-# print(response.text)
+    data = response.json()
+
+except requests.exceptions.Timeout:
+    raise Exception("[Cystatic API] Request timed out")
+
+except requests.exceptions.ConnectionError:
+    raise Exception("[Cystatic API] Connection error")
+
+except requests.exceptions.HTTPError as e:
+    raise Exception(
+        f"[Cystatic API] HTTP error {response.status_code}: {response.text}"
+    )
+
+except requests.exceptions.RequestException as e:
+    raise Exception(
+        f"[Cystatic API] Unexpected request error: {str(e)}"
+    )
