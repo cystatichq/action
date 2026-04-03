@@ -13,6 +13,3 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  env:
-    INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
-    INPUT_CYSTATIC_API_KEY: ${{ inputs.cystatic_api_key }}

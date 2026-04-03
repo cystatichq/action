@@ -20,7 +20,7 @@ pr = event["pull_request"]
 repo = event["repository"]["full_name"]
 pr_number = pr["number"]
 
-diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
+diff_url = f"https://github.com/{repo}/pull/{pr_number}.diff"
 
 headers = {
     "Authorization": f"Bearer {github_token}",
