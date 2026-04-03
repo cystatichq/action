@@ -37,33 +37,20 @@ payload = {
     "diff": diff
 }
 
+response = requests.post(
+    f"{api_url}/v1/analyze-pr",
+    headers={
+        "x-api-key": cystatic_api_key,
+        "Content-Type": "application/json"
+    },
+    json=payload,
+    timeout=30
+)
+
 try:
-    response = requests.post(
-        f"{api_url}/v1/analyze-pr",
-        headers={
-            "Authorization": f"{cystatic_api_key}",
-            "Content-Type": "application/json"
-        },
-        json=payload,
-        timeout=30
-    )
-
     response.raise_for_status()
-
     data = response.json()
-
-except requests.exceptions.Timeout:
-    raise Exception("[Cystatic API] Request timed out")
-
-except requests.exceptions.ConnectionError:
-    raise Exception("[Cystatic API] Connection error")
-
 except requests.exceptions.HTTPError as e:
     raise Exception(
-        f"[Cystatic API] HTTP error {response.status_code}: {response.text}"
-    )
-
-except requests.exceptions.RequestException as e:
-    raise Exception(
-        f"[Cystatic API] Unexpected request error: {str(e)}"
+        f"[Cystatic API] HTTP error: {e.response.status_code} - {e.response.text}"
     )
