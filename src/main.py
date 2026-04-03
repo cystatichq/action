@@ -10,7 +10,7 @@ def get_env(name: str) -> str:
 
 github_token = get_env("INPUT_GITHUB_TOKEN")
 cystatic_api_key = get_env("INPUT_CYSTATIC_API_KEY")
-event_path = os.getenv("GITHUB_EVENT_PATH")
+event_path = get_env("GITHUB_EVENT_PATH")
 api_url = "https://cystatic-core.onrender.com"
 
 with open(event_path, "r") as f:
