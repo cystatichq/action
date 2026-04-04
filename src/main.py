@@ -33,8 +33,8 @@ diff = requests.get(diff_url, headers=headers).text
 payload = {
     "repo": repo,
     "pr_number": pr_number,
-    "diff_url": diff_url,
-    "diff": diff
+    # "diff_url": diff_url,
+    # "diff": diff
 }
 
 response = requests.post(
@@ -44,7 +44,7 @@ response = requests.post(
         "Content-Type": "application/json"
     },
     json=payload,
-    timeout=30
+    timeout=120
 )
 
 try:
